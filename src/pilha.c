@@ -67,3 +67,21 @@ int getTopItem(PILHA *ps)
     }
     return -1;
 }
+
+/**
+* Função para mostrar topo
+* <params>PILHA</params>
+*/
+int getTopo(PILHA *ps)
+{
+	return ps->topo;
+}
+
+/**
+* Função para setar o topo como zero.
+* <params>PILHA</params>
+*/
+setTopo(PILHA *ps)
+{
+    ps->topo = 0;
+}

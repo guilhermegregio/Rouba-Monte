@@ -12,6 +12,65 @@
 #include<stdlib.h>
 #include "pilha.c"
 
+void menu()
+{
+	printf("1 - Iniciar partida;\n");
+	printf("2 - Gerar novo arquivo rouba-monte.txt;\n");
+	printf("3 - SAIR;\n");
+}
+
+int outrosMontes(int qtdJogadores, PILHA *jogador, int mao, int jAtual)
+{
+    int j;
+	for(j = 0; j < qtdJogadores; j++)
+	{
+		if(jAtual != j)
+		{
+			//Consultar no monte dos outros
+			if(mao == getTopItem(&jogador[j]))
+			{
+				//printf("\tPegou monte do jogador %d\n", j+1);
+				pegarMonte(&jogador[j]);
+				push(&jogador[jAtual], mao);
+				return 1;
+				break;
+			}
+		}
+	}
+	return 0;
+}
+
+int meuMonte(PILHA *jogador, int mao, int jAtual)
+{
+	//Consultar com meu monte;
+	if(mao == getTopItem(&jogador[jAtual]))
+	{
+		//printf("\tInseriu no proprio monte\n");
+		push(&jogador[jAtual], mao);
+		return 1;
+	}
+	return 0;
+}
+
+int noDescarte(int *descarte, PILHA *jogador, int mao, int jAtual)
+{
+    int j;
+	//Consultar no discarte
+	for(j = 1; j <= descarte[0]; j++)
+	{
+		if(mao == descarte[j])
+		{
+			//printf("\tPegou do descarte\n");
+			push(&jogador[jAtual], mao);
+			descarte[j] = 0;
+			return 1;
+			break;
+		}
+	}
+	return 0;
+}
+
+
 int main()
 {
     int cartas, qtdJogadores, itens[TAMPILHA], i, j, k, mao, achou, descarte[TAMPILHA+1];
@@ -38,14 +97,13 @@ int main()
     PILHA jogador[qtdJogadores];
     PILHA monte;
 
-
-
     for(i=0; i<TAMPILHA+1; i++)
     {
         descarte[i] = 0;
     }
 
-    monte.topo = 0;
+    setTopo(&monte);
+    //monte.topo = 0;
 
     for(i=0; i<cartas; i++)
     {
@@ -56,12 +114,19 @@ int main()
 
     for(i=0; i<qtdJogadores; i++)
     {
-        jogador[i].topo = 0;
+        setTopo(&jogador[i].topo);
+        //jogador[i].topo = 0;
+    }
+
+    for(i=0; i<cartas; i++)
+    {
+        printf(" %d ", itens[i] );
+        //push(&monte, itens[i]); // coloca cartas na pilha monte
     }
 
     for(i=cartas-1; i>=0; i--)
     {
-        printf(" %d ", itens[i] );
+        //printf(" %d ", itens[i] );
         push(&monte, itens[i]); // coloca cartas na pilha monte
     }
     printf("\n---------------------\n");
@@ -73,6 +138,9 @@ int main()
         mao = pop(&monte);
         //printf("\tMao: %d\n", mao);
         achou = 0;
+
+        achou = outrosMontes(qtdJogadores, jogador, mao, i);
+        /*
         for(j = 0; j < qtdJogadores; j++)
         {
             if(i != j)
@@ -88,9 +156,11 @@ int main()
                 }
             }
         }
-
+        */
         if(achou != 1)
         {
+            achou = meuMonte(jogador, mao, i);
+            /*
             //Consultar com meu monte;
             if(mao == getTopItem(&jogador[i]))
             {
@@ -98,10 +168,13 @@ int main()
                 push(&jogador[i], mao);
                 achou = 1;
             }
+            */
         }
 
         if(achou != 1)
         {
+            achou = noDescarte(descarte, jogador, mao, i);
+            /*
             //Consultar no discarte
             for(j = 1; j <= descarte[0]; j++)
             {
@@ -114,6 +187,7 @@ int main()
                     break;
                 }
             }
+            */
         }
 
         if(achou == 0)
@@ -121,7 +195,7 @@ int main()
             descarte[descarte[0]+1] = mao;
             descarte[0] = descarte[0] + 1;
             //printf("\tDescartou a mao: descarte[%d] = %d;\n", 0, descarte[0]);
-            if(monte.topo != 0)
+            if(getTopo(&monte) != 0)
             {
                 //printf("\t%d = %d\n", i, qtdJogadores-1);
                 if(i >= qtdJogadores-1)
@@ -133,13 +207,13 @@ int main()
         else
         {
             //printf("\tAchou\n");
-            if(monte.topo != 0)
+            if(getTopo(&monte) != 0)
             {
                 i=i;
             }
         }
 
-        if(monte.topo == 0)
+        if(getTopo(&monte) == 0)
         {
             repet = 0;
         }
@@ -148,8 +222,8 @@ int main()
     int ganhador = 0;
     for(i=0; i < qtdJogadores; i++)
     {
-        printf("Monte jogador[%d] = %d\n", i+1, jogador[i].topo);
-        if(jogador[ganhador].topo < jogador[i].topo)
+        printf("Monte jogador[%d] = %d\n", i+1, getTopo(&jogador[i]));
+        if(getTopo(&jogador[ganhador]) < getTopo(&jogador[i]))
             ganhador = i;
     }
     printf("---------------------\n");
