@@ -108,11 +108,8 @@ int vencedor(int qtdJogadores, PILHA *jogador)
 int carta(void)
 {
     int carta = rand() % 14;
-
     if(carta == 0)
-    {
         carta++;
-    }
     return carta;
 }
 ///-------------------------------------------------------------------------------------------
@@ -122,7 +119,6 @@ int main()
     int cartas,
         qtdJogadores,
         itens[TAMPILHA],
-        jAtual,
         i,
         j,
         k,
@@ -166,20 +162,18 @@ int main()
     for(i=0; i<qtdJogadores; i++) /// Zerar o topo de todas as pilhas dos jogadores ----------
         setTopo(&jogador[i].topo);
 
-    for(i=0; i<cartas; i++) /// Imprimir as cartas -------------------------------------------
-        printf(" %d ", itens[i] );
-
     for(i=cartas-1; i>=0; i--) /// Coloca cartas na pilha monte ------------------------------
         push(&monte, itens[i]);
+
+    for(i=0; i<cartas; i++) /// Imprimir as cartas -------------------------------------------
+        printf(" %d ", itens[i] );
 
     printf("\n---------------------\n");
 
     while(repet)
     {
         mao = pop(&monte);
-
         achou = 0;
-
         /// Verifica o monte dos outros jogadores -------------------------------------------
         achou = outrosMontes(qtdJogadores, jogador, mao, jAtual);
         if(achou != 1) /// Verifica o proprio monte -----------------------------------------
