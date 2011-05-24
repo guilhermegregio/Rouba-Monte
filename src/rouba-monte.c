@@ -6,7 +6,8 @@
  *              "Guilherme Mangabeira Gregio" <1012466@sumare.edu.br>
  *              "Marcio Barbosa de Melo" <1012689@sumare.edu.br>,
  *              "Matheus Borba Cezar" <1011022@sumare.edu.br>,
- *              "Rafael Antonio Lucio" <1010671@sumare.edu.br>
+ *              "Rafael Antonio Lucio" <1010671@sumare.edu.br>,
+ *				"Rogerio Benicio dos Santos" <1012478@sumare.edu.br>
 **/
 
 #include<stdio.h>
