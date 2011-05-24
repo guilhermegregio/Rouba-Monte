@@ -97,9 +97,19 @@ int prox(int achou, int *descarte, int mao, int qtdJogadores, PILHA *monte, int 
     return jAtual;
 }
 
+int vencedor(int qtdJogadores, PILHA *jogador)
+{
+    int ganhador = 0, i;
+    for(i=0; i < qtdJogadores; i++)
+    {
+        if(getTopo(&jogador[ganhador]) < getTopo(&jogador[i]))
+            ganhador = i;
+    }
+    return ganhador;
+}
 int main()
 {
-    int cartas, qtdJogadores, itens[TAMPILHA], i, j, k, mao, achou, descarte[TAMPILHA+1];
+    int cartas, qtdJogadores, itens[TAMPILHA], jAtual, i, j, k, mao, achou, descarte[TAMPILHA+1];
 
     FILE * Arquivo;
     Arquivo = fopen ("roubaMonte.txt","r"); // Abre arquivo de texto com parâmetros
@@ -156,98 +166,30 @@ int main()
         push(&monte, itens[i]); // coloca cartas na pilha monte
     }
     printf("\n---------------------\n");
-    i = 0;
+    jAtual = 0;
     int repet = 1;
     while(repet)
     {
-        //printf("Jogador: %d\n", i+1);
         mao = pop(&monte);
-        //printf("\tMao: %d\n", mao);
+
         achou = 0;
 
-        achou = outrosMontes(qtdJogadores, jogador, mao, i);
-        /*
-        for(j = 0; j < qtdJogadores; j++)
-        {
-            if(i != j)
-            {
-                //Consultar no monte dos outros
-                if(mao == getTopItem(&jogador[j]))
-                {
-                    //printf("\tPegou monte do jogador %d\n", j+1);
-                    pegarMonte(&jogador[j]);
-                    push(&jogador[i], mao);
-                    achou = 1;
-                    break;
-                }
-            }
-        }
-        */
-        if(achou != 1)
-        {
-            achou = meuMonte(jogador, mao, i);
-            /*
-            //Consultar com meu monte;
-            if(mao == getTopItem(&jogador[i]))
-            {
-                //printf("\tInseriu no proprio monte\n");
-                push(&jogador[i], mao);
-                achou = 1;
-            }
-            */
-        }
+        achou = outrosMontes(qtdJogadores, jogador, mao, jAtual);
 
         if(achou != 1)
-        {
-            achou = noDescarte(descarte, jogador, mao, i);
-            /*
-            //Consultar no discarte
-            for(j = 1; j <= descarte[0]; j++)
-            {
-                if(mao == descarte[j])
-                {
-                    //printf("\tPegou do descarte\n");
-                    push(&jogador[i], mao);
-                    descarte[j] = 0;
-                    achou = 1;
-                    break;
-                }
-            }
-            */
-        }
+            achou = meuMonte(jogador, mao, jAtual);
 
-        i = prox(achou, descarte, mao, qtdJogadores, &monte, i);
-        /*
-        if(achou == 0)
-        {
-            descarte[descarte[0]+1] = mao;
-            descarte[0] = descarte[0] + 1;
-            //printf("\tDescartou a mao: descarte[%d] = %d;\n", 0, descarte[0]);
-            if(getTopo(&monte) != 0)
-            {
-                //printf("\t%d = %d\n", i, qtdJogadores-1);
-                if(i >= qtdJogadores-1)
-                    i = 0;
-                else
-                    i++;
-            }
-        }
-        else
-        {
-            //printf("\tAchou\n");
-            if(getTopo(&monte) != 0)
-            {
-                i=i;
-            }
-        }
-        */
+        if(achou != 1)
+            achou = noDescarte(descarte, jogador, mao, jAtual);
+
+        jAtual = prox(achou, descarte, mao, qtdJogadores, &monte, jAtual);
 
         if(getTopo(&monte) == 0)
-        {
             repet = 0;
-        }
     }
 
+    printf("Ganhador jogador %d", vencedor(qtdJogadores, &jogador)+1);
+    /*
     int ganhador = 0;
     for(i=0; i < qtdJogadores; i++)
     {
@@ -257,7 +199,7 @@ int main()
     }
     printf("---------------------\n");
     printf("Ganhador jogador %d", ganhador+1);
-
+    */
     //system("pause");
     return 0;
 }
