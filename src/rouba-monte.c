@@ -10,17 +10,7 @@
 
 #include<stdio.h>
 #include<stdlib.h>
-#define TAMPILHA 52
-
-typedef struct {
-    int topo;
-    int cartas[TAMPILHA];
-} PILHA;
-
-void push(PILHA *ps, int x);
-int pop(PILHA *ps); //*ps=ponteiro para a estrutura da pilha
-void pegarMonte(PILHA *ps);
-int getTopItem(PILHA *ps);
+#include "pilha.c"
 
 int main()
 {
@@ -169,37 +159,16 @@ int main()
     return 0;
 }
 
-void push(PILHA *ps, int x)
+/**
+ * Sortear uma carta ou seja um numero de 1 a 13;
+ */
+int carta(void)
 {
-    if (ps->topo > TAMPILHA) {
-        printf("Pilha Cheia\n");
-        system("pause");
-        exit(1);
-    } else
-        ps->cartas[ps->topo++] = x;
-}
+    int carta = rand() % 14;
 
-
-int pop(PILHA *ps)
-{
-    if (ps->topo <= 0) {
-        printf("Pilha vazia\n");
-        system("pause");
-        exit(1);
-    } else
-        return ps->cartas[--ps->topo];
-}
-
-void pegarMonte(PILHA *ps)
-{
-    ps->topo = 0;
-}
-
-int getTopItem(PILHA *ps)
-{
-    if(ps->topo > 0)
+    if(carta == 0)
     {
-        return ps->cartas[ps->topo-1];
+        carta++;
     }
-    return -1;
+    return carta;
 }
