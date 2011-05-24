@@ -7,6 +7,7 @@
  *              "Matheus Borba Cezar" <1011022@sumare.edu.br>,
  *              "Rafael Antonio Lucio" <1010671@sumare.edu.br>,
 **/
+
 #include<stdio.h>
 #include<stdlib.h>
 #define TAMPILHA 52
@@ -21,21 +22,10 @@ int pop(PILHA *ps); //*ps=ponteiro para a estrutura da pilha
 
 int main()
 {
-    int cartas, jogadoresMax, itens[TAMPILHA], i, j, k;
+    int cartas, jogadoresMax, itens[TAMPILHA], i;
 
     FILE * Arquivo;
     Arquivo = fopen ("roubaMonte.txt","r"); // Abre arquivo de texto com parâmetros
-
-    if (Arquivo==NULL) // Se arquivo não existir criar
-    {
-        Arquivo = fopen ("roubaMonte.txt","w"); // Cria arquivo
-        fprintf (Arquivo, "%d %d\n", 6, 3);
-        fprintf (Arquivo, "%d %d %d %d %d %d\n", 1, 10, 2, 3, 3, 5);
-        fclose (Arquivo);
-        Arquivo = fopen ("roubaMonte.txt","r"); // Abre arquivo de texto com parâmetros
-    }
-
-
     fscanf (Arquivo, "%d", &cartas); // leitura do número de cartas
     fscanf (Arquivo, "%d", &jogadoresMax); // leitura da quantidade de jogadores
     printf("Nr de jogadores: %d\n", jogadoresMax);
@@ -54,11 +44,6 @@ int main()
 
     fclose (Arquivo);
 
-    for(i=0; i<jogadoresMax; i++)
-    {
-        printf("Jogador %d\n", i);
-    }
-
     for(i=cartas-1; i>=0; i--)
     {
         push(&monte, itens[i]); // coloca cartas na pilha monte
@@ -67,15 +52,6 @@ int main()
     i = 0;
     while(monte.topo)
     {
-        for(j = 0; j < jogadoresMax; j++)
-        {
-            printf("\nJogador %d:\n", j);
-            for(k = 0; k < jogadoresMax; k++)
-            {
-                if(k != j)
-                    printf("Comparar carta com topo do jogador %d\n", k);
-            }
-        }
         printf("Ordem: %d\tCarta: %d\n", i+1, pop(&monte)); // retira cartas da pilha
         i++;
     }
@@ -104,6 +80,3 @@ int pop(PILHA *ps)
     } else
         return ps->cartas[--ps->topo];
 }
-
-
-
