@@ -1,11 +1,12 @@
 ﻿/**
  * Grupo:       G4
  * Projeto:     Rouba Monte
- * Integrantes: "Allan Cezar Geraldo" <1011086@sumare.edu.br>,
+ * Integrantes: "Alexandre de Andrade" <0921358@sumare.edu.br>,
+ *              "Allan Cezar Geraldo" <1011086@sumare.edu.br>,
  *              "Guilherme Mangabeira Gregio" <1012466@sumare.edu.br>
  *              "Marcio Barbosa de Melo" <1012689@sumare.edu.br>,
  *              "Matheus Borba Cezar" <1011022@sumare.edu.br>,
- *              "Rafael Antonio Lucio" <1010671@sumare.edu.br>,
+ *              "Rafael Antonio Lucio" <1010671@sumare.edu.br>
 **/
 
 #include<stdio.h>

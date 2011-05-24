@@ -3,6 +3,8 @@
 
 #Creditos#
 
+ALEXANDRE DE ANDRADE			<0921358@sumare.edu.br>
+
 ALLAN CEZAR GERALDO 			<1011086@sumare.edu.br>
 
 GUILHERME MANGABEIRA GREGIO 	<1012466@sumare.edu.br>
