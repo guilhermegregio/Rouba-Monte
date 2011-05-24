@@ -1,4 +1,4 @@
-/**
+ï»¿/**
  * Grupo:       G4
  * Projeto:     Rouba Monte
  * Integrantes: "Allan Cezar Geraldo" <1011086@sumare.edu.br>,
@@ -26,13 +26,13 @@ int pilha[MAX]; //vetor para armazenar pilha;
 int tos=0; //armazenar o topo da pilha;
 
 //
-/// Protopipação;
+/// ProtopipaÃ§Ã£o;
 //
 void push(int);
 int pop(void);
 int carta(void);
 //
-/// Função principal;
+/// FunÃ§Ã£o principal;
 //
 int main()
 {
@@ -40,7 +40,7 @@ int main()
     int i;
 
     //
-    /// Preencher pilha com cartas eleatórias;
+    /// Preencher pilha com cartas eleatÃ³rias;
     //
     for(i=1; i<=52; i++)
     {
@@ -53,7 +53,7 @@ int main()
     for(i=1; i<=52; i++)
     {
         printf("%d\n", pop());
-        if(i % 13 == 0 && i != MAX) // Inserir uma divisão a cade 13 cartas;
+        if(i % 13 == 0 && i != MAX) // Inserir uma divisÃ£o a cade 13 cartas;
         {
             printf("------------------------------------\n");
         }
