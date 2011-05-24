@@ -11,14 +11,14 @@
 #include<stdio.h>
 #include<stdlib.h>
 #include "pilha.c"
-
+///-------------------------------------------------------------------------------------------
 void menu()
 {
 	printf("1 - Iniciar partida;\n");
 	printf("2 - Gerar novo arquivo rouba-monte.txt;\n");
 	printf("3 - SAIR;\n");
 }
-
+///-------------------------------------------------------------------------------------------
 int outrosMontes(int qtdJogadores, PILHA *jogador, int mao, int jAtual)
 {
     int j;
@@ -38,7 +38,7 @@ int outrosMontes(int qtdJogadores, PILHA *jogador, int mao, int jAtual)
 	}
 	return 0;
 }
-
+///-------------------------------------------------------------------------------------------
 int meuMonte(PILHA *jogador, int mao, int jAtual)
 {
 	//Consultar com meu monte;
@@ -49,7 +49,7 @@ int meuMonte(PILHA *jogador, int mao, int jAtual)
 	}
 	return 0;
 }
-
+///-------------------------------------------------------------------------------------------
 int noDescarte(int *descarte, PILHA *jogador, int mao, int jAtual)
 {
     int j;
@@ -66,7 +66,7 @@ int noDescarte(int *descarte, PILHA *jogador, int mao, int jAtual)
 	}
 	return 0;
 }
-
+///-------------------------------------------------------------------------------------------
 int prox(int achou, int *descarte, int mao, int qtdJogadores, PILHA *monte, int jAtual)
 {
     if(achou == 0)
@@ -90,7 +90,7 @@ int prox(int achou, int *descarte, int mao, int qtdJogadores, PILHA *monte, int 
     }
     return jAtual;
 }
-
+///-------------------------------------------------------------------------------------------
 int vencedor(int qtdJogadores, PILHA *jogador)
 {
     int ganhador = 0, i;
@@ -101,11 +101,39 @@ int vencedor(int qtdJogadores, PILHA *jogador)
     }
     return ganhador;
 }
+///-------------------------------------------------------------------------------------------
+/**
+ * Sortear uma carta ou seja um numero de 1 a 13;
+ */
+int carta(void)
+{
+    int carta = rand() % 14;
+
+    if(carta == 0)
+    {
+        carta++;
+    }
+    return carta;
+}
+///-------------------------------------------------------------------------------------------
 int main()
 {
-    int cartas, qtdJogadores, itens[TAMPILHA], jAtual, i, j, k, mao, achou, descarte[TAMPILHA+1];
-
+    //Declaração das variaveis do tipo int
+    int cartas,
+        qtdJogadores,
+        itens[TAMPILHA],
+        jAtual,
+        i,
+        j,
+        k,
+        mao,
+        achou,
+        descarte[TAMPILHA+1],
+        repet = 1,
+        jAtual = 0;
     FILE * Arquivo;
+    PILHA monte;
+
     Arquivo = fopen ("roubaMonte.txt","r"); // Abre arquivo de texto com parâmetros
 
     if (Arquivo==NULL) // Se arquivo não existir criar
@@ -124,75 +152,50 @@ int main()
     printf("---------------------\n");
 
     PILHA jogador[qtdJogadores];
-    PILHA monte;
 
-    for(i=0; i<TAMPILHA+1; i++)
-    {
+    for(i=0; i<TAMPILHA+1; i++) /// Definir os itens do vetor descarte para zero; ------------
         descarte[i] = 0;
-    }
 
-    setTopo(&monte);
+    setTopo(&monte); /// Zerar o topo
 
-    for(i=0; i<cartas; i++)
-    {
-        fscanf (Arquivo, "%d", &itens[i]);
-    }
+    for(i=0; i<cartas; i++) /// Inserir valores do arquivo para o vetor itens; ---------------
+        fscanf(Arquivo, "%d", &itens[i]);
 
-    fclose (Arquivo);
+    fclose(Arquivo);
 
-    for(i=0; i<qtdJogadores; i++)
-    {
+    for(i=0; i<qtdJogadores; i++) /// Zerar o topo de todas as pilhas dos jogadores ----------
         setTopo(&jogador[i].topo);
-    }
 
-    for(i=0; i<cartas; i++)
-    {
+    for(i=0; i<cartas; i++) /// Imprimir as cartas -------------------------------------------
         printf(" %d ", itens[i] );
-    }
 
-    for(i=cartas-1; i>=0; i--)
-    {
-        push(&monte, itens[i]); // coloca cartas na pilha monte
-    }
+    for(i=cartas-1; i>=0; i--) /// Coloca cartas na pilha monte ------------------------------
+        push(&monte, itens[i]);
+
     printf("\n---------------------\n");
-    jAtual = 0;
-    int repet = 1;
+
     while(repet)
     {
         mao = pop(&monte);
 
         achou = 0;
 
+        /// Verifica o monte dos outros jogadores -------------------------------------------
         achou = outrosMontes(qtdJogadores, jogador, mao, jAtual);
-
-        if(achou != 1)
+        if(achou != 1) /// Verifica o proprio monte -----------------------------------------
             achou = meuMonte(jogador, mao, jAtual);
-
-        if(achou != 1)
+        if(achou != 1) /// Verifica o descarte ----------------------------------------------
             achou = noDescarte(descarte, jogador, mao, jAtual);
-
+        /// Retorna quem ira jogar a prox.  -------------------------------------------------
         jAtual = prox(achou, descarte, mao, qtdJogadores, &monte, jAtual);
-
+        ///Verifica se o monte acabou -------------------------------------------------------
         if(getTopo(&monte) == 0)
             repet = 0;
     }
 
+    ///Informa o jogador vencedor -----------------------------------------------------------
     printf("Ganhador jogador %d", vencedor(qtdJogadores, &jogador)+1);
-
+    printf("\n---------------------\n");
     //system("pause");
     return 0;
-}
-
-/**
- * Sortear uma carta ou seja um numero de 1 a 13;
- */
-int carta(void)
-{
-    int carta = rand() % 14;
-
-    if(carta == 0)
-    {
-        carta++;
-    }
-    return carta;
 }
