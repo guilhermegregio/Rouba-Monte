@@ -70,6 +70,32 @@ int noDescarte(int *descarte, PILHA *jogador, int mao, int jAtual)
 	return 0;
 }
 
+int prox(int achou, int *descarte, int mao, int qtdJogadores, PILHA *monte, int jAtual)
+{
+    if(achou == 0)
+    {
+        descarte[descarte[0]+1] = mao;
+        descarte[0] = descarte[0] + 1;
+        //printf("\tDescartou a mao: descarte[%d] = %d;\n", 0, descarte[0]);
+        if(getTopo(&monte) != 0)
+        {
+            //printf("\t%d = %d\n", i, qtdJogadores-1);
+            if(jAtual >= qtdJogadores-1)
+                jAtual = 0;
+            else
+                jAtual++;
+        }
+    }
+    else
+    {
+        //printf("\tAchou\n");
+        if(getTopo(&monte) != 0)
+        {
+            jAtual=jAtual;
+        }
+    }
+    return jAtual;
+}
 
 int main()
 {
@@ -190,6 +216,8 @@ int main()
             */
         }
 
+        i = prox(achou, descarte, mao, qtdJogadores, &monte, i);
+        /*
         if(achou == 0)
         {
             descarte[descarte[0]+1] = mao;
@@ -212,6 +240,7 @@ int main()
                 i=i;
             }
         }
+        */
 
         if(getTopo(&monte) == 0)
         {
