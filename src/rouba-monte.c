@@ -7,97 +7,103 @@
  *              "Matheus Borba Cezar" <1011022@sumare.edu.br>,
  *              "Rafael Antonio Lucio" <1010671@sumare.edu.br>,
 **/
-
-//
-/// Bibliotecas
-//
 #include<stdio.h>
 #include<stdlib.h>
+#define TAMPILHA 52
 
-//
-/// Constantes
-//
-#define MAX 52 //Quantidades de cartas em um baralho;
+typedef struct {
+    int topo;
+    int cartas[TAMPILHA];
+} PILHA;
 
-//
-/// Variaveis globais
-//
-int pilha[MAX]; //vetor para armazenar pilha;
-int tos=0; //armazenar o topo da pilha;
+void push(PILHA *ps, int x);
+int pop(PILHA *ps); //*ps=ponteiro para a estrutura da pilha
 
-//
-/// Protopipação;
-//
-void push(int);
-int pop(void);
-int carta(void);
-//
-/// Função principal;
-//
 int main()
 {
-    srand(time(NULL));
-    int i;
+    int cartas, jogadoresMax, itens[TAMPILHA], i, j, k;
 
-    //
-    /// Preencher pilha com cartas eleatórias;
-    //
-    for(i=1; i<=52; i++)
+    FILE * Arquivo;
+    Arquivo = fopen ("roubaMonte.txt","r"); // Abre arquivo de texto com parâmetros
+
+    if (Arquivo==NULL) // Se arquivo não existir criar
     {
-        push(carta());
+        Arquivo = fopen ("roubaMonte.txt","w"); // Cria arquivo
+        fprintf (Arquivo, "%d %d\n", 6, 3);
+        fprintf (Arquivo, "%d %d %d %d %d %d\n", 1, 10, 2, 3, 3, 5);
+        fclose (Arquivo);
+        Arquivo = fopen ("roubaMonte.txt","r"); // Abre arquivo de texto com parâmetros
     }
 
-    //
-    /// Recuperar cartas da pilha;
-    //
-    for(i=1; i<=52; i++)
+
+    fscanf (Arquivo, "%d", &cartas); // leitura do número de cartas
+    fscanf (Arquivo, "%d", &jogadoresMax); // leitura da quantidade de jogadores
+    printf("Nr de jogadores: %d\n", jogadoresMax);
+    printf("Nr de cartas: %d\n", cartas);
+    printf("---------------------\n");
+
+    PILHA jogadores[jogadoresMax];
+    PILHA monte;
+
+    monte.topo=0;
+
+    for(i=0; i<cartas; i++)
     {
-        printf("%d\n", pop());
-        if(i % 13 == 0 && i != MAX) // Inserir uma divisão a cade 13 cartas;
+        fscanf (Arquivo, "%d", &itens[i]);
+    }
+
+    fclose (Arquivo);
+
+    for(i=0; i<jogadoresMax; i++)
+    {
+        printf("Jogador %d\n", i);
+    }
+
+    for(i=cartas-1; i>=0; i--)
+    {
+        push(&monte, itens[i]); // coloca cartas na pilha monte
+    }
+
+    i = 0;
+    while(monte.topo)
+    {
+        for(j = 0; j < jogadoresMax; j++)
         {
-            printf("------------------------------------\n");
+            printf("\nJogador %d:\n", j);
+            for(k = 0; k < jogadoresMax; k++)
+            {
+                if(k != j)
+                    printf("Comparar carta com topo do jogador %d\n", k);
+            }
         }
+        printf("Ordem: %d\tCarta: %d\n", i+1, pop(&monte)); // retira cartas da pilha
+        i++;
     }
+
+    system("pause");
+    return 0;
 }
 
-//
-/// Inserir um elemento na pilha;
-//
-void push(int i)
+void push(PILHA *ps, int x)
 {
-    if(tos>=MAX)
-    {
-        printf("Pilha cheia\n");
-        exit(1); //Encerrar programa caso a pilha esteja cheia;
-    }
-    pilha[tos] = i;
-    tos++;
+    if (ps->topo > TAMPILHA) {
+        printf("Pilha Cheia\n");
+        system("pause");
+        exit(1);
+    } else
+        ps->cartas[ps->topo++] = x;
 }
 
-//
-/// Recuperar o elemento do topo da pilha;
-//
-int pop(void)
+
+int pop(PILHA *ps)
 {
-    tos--;
-    if(tos<0)
-    {
+    if (ps->topo <= 0) {
         printf("Pilha vazia\n");
-        exit(1); //Encerrar programa caso pilha esteja vazia;
-    }
-    return pilha[tos];
+        system("pause");
+        exit(1);
+    } else
+        return ps->cartas[--ps->topo];
 }
 
-//
-/// Sortear uma carta ou seja um numero de 1 a 13;
-//
-int carta(void)
-{
-    int carta = rand() % 14;
 
-    if(carta == 0)
-    {
-        carta++;
-    }
-    return carta;
-}
+
