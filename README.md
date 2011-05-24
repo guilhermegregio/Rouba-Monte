@@ -4,8 +4,6 @@
 Creditos
 --------------------------------------
 
-Descrição cm algumas linhas, Descrição cm algumas linhas, Descrição cm algumas linhas, Descrição cm algumas linhas, Descrição cm algumas linhas, Descrição cm algumas linhas.
-
 ALLAN CEZAR GERALDO 			<1011086@sumare.edu.br>
 
 GUILHERME MANGABEIRA GREGIO 	<1012466@sumare.edu.br>
