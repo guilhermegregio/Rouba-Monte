@@ -157,9 +157,10 @@ void inicio()
 
     Arquivo = fopen ("roubaMonte.txt","r"); // Abre arquivo de texto com parâmetros
 
-    if (Arquivo==NULL) // Se arquivo não existir criar
+    if (Arquivo==NULL) // Se arquivo não existir exibir mensagem para criar arquivo
     {
-        printf("Arquivo roubaMonte.txt nao encontrado!!!");
+        printf("Arquivo roubaMonte.txt nao encontrado!!!\n");
+        printf("Acesse o menu 2 para gerar um arquivo aleatorio.\n");
         return 0;
     }
 
