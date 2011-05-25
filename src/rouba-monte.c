@@ -159,11 +159,8 @@ void inicio()
 
     if (Arquivo==NULL) // Se arquivo não existir criar
     {
-        Arquivo = fopen ("roubaMonte.txt","w"); // Cria arquivo
-        fprintf (Arquivo, "%d %d\n", 6, 3);
-        fprintf (Arquivo, "%d %d %d %d %d %d\n", 1, 10, 2, 3, 3, 5);
-        fclose (Arquivo);
-        Arquivo = fopen ("roubaMonte.txt","r"); // Abre arquivo de texto com parâmetros
+        printf("Arquivo roubaMonte.txt nao encontrado!!!");
+        return 0;
     }
 
     fscanf (Arquivo, "%d", &cartas); // leitura do número de cartas
@@ -219,8 +216,14 @@ void inicio()
 ///-------------------------------------------------------------------------------------------
 void criarArq()
 {
+    FILE * Arquivo;
     clear();
-    printf("Arquivo rouba-monte.txt gerado com sucesso!!!");
+    printf("Arquivo roubaMonte.txt gerado com sucesso!!!");
+
+    Arquivo = fopen ("roubaMonte.txt","w"); // Cria arquivo
+    fprintf (Arquivo, "%d %d\n", 6, 3);
+    fprintf (Arquivo, "%d %d %d %d %d %d\n", carta(), carta(), carta(), carta(), carta(), carta());
+    fclose (Arquivo);
 }
 ///-------------------------------------------------------------------------------------------
 void sair()
@@ -236,6 +239,7 @@ void clear()
 ///-------------------------------------------------------------------------------------------
 int main()
 {
+    srand ( time(NULL) );
     int opt;
 
     do
