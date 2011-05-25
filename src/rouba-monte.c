@@ -16,9 +16,22 @@
 ///-------------------------------------------------------------------------------------------
 void menu()
 {
+    system("cls||clear");
 	printf("1 - Iniciar partida;\n");
 	printf("2 - Gerar novo arquivo rouba-monte.txt;\n");
-	printf("3 - SAIR;\n");
+	printf("3 - Creditos;\n");
+	printf("4 - SAIR;\n");
+}
+///-------------------------------------------------------------------------------------------
+void creditos()
+{
+     printf("Alexandre de Andrade <0921358@sumare.edu.br>;\n");
+     printf("Allan Cezar Geraldo <1011086@sumare.edu.br>;\n");
+     printf("Guilherme Mangabeira Gregio <1012466@sumare.edu.br>;\n");
+     printf("Marcio Barbosa de Melo <1012689@sumare.edu.br>;\n");
+     printf("Matheus Borba Cezar <1011022@sumare.edu.br>;\n");
+     printf("Rafael Antonio Lucio <1010671@sumare.edu.br>;\n");
+     printf("Rogerio Benicio dos Santos <1012478@sumare.edu.br>;\n");
 }
 ///-------------------------------------------------------------------------------------------
 int outrosMontes(int qtdJogadores, PILHA *jogador, int mao, int jAtual)
@@ -115,7 +128,7 @@ int carta(void)
     return carta;
 }
 ///-------------------------------------------------------------------------------------------
-int main()
+void inicio()
 {
     //Declaração das variaveis do tipo int
     int cartas,
@@ -128,7 +141,8 @@ int main()
         achou,
         descarte[TAMPILHA+1],
         repet = 1,
-        jAtual = 0;
+        jAtual = 0,
+        opt;
     FILE * Arquivo;
     PILHA monte;
 
@@ -192,6 +206,35 @@ int main()
     ///Informa o jogador vencedor -----------------------------------------------------------
     printf("Ganhador jogador %d", vencedor(qtdJogadores, &jogador)+1);
     printf("\n---------------------\n");
+}
+///-------------------------------------------------------------------------------------------
+void criarArq(){}
+///-------------------------------------------------------------------------------------------
+void sair()
+{
+    printf("Saindo!!!");
+}
+///-------------------------------------------------------------------------------------------
+int main()
+{
+    int opt;
+
+    do
+    {
+        menu();
+        printf("Escolha uma opcao: ");
+        scanf("%d", &opt);
+
+        switch(opt)
+        {
+            case 1: inicio();   break;
+            case 2: criarArq(); break;
+            case 3: creditos(); break;
+            case 4: sair();     break;
+        }
+    }
+    while(opt != 4);
+
     //system("pause");
     return 0;
 }
