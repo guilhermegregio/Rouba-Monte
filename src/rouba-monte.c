@@ -14,6 +14,20 @@
 #include<stdlib.h>
 #include "pilha.c"
 ///-------------------------------------------------------------------------------------------
+void sair();
+void criarArq();
+int inicio();
+void clear();
+void pause();
+void menu();
+void creditos();
+int carta(void);
+int outrosMontes(int, PILHA *, int, int);
+int meuMonte(PILHA *, int, int);
+int noDescarte(int *, PILHA *, int, int);
+int prox(int, int *, int, int, PILHA *, int);
+int vencedor(int, PILHA *);
+///-------------------------------------------------------------------------------------------
 void pause()
 {
     fflush(stdin);
@@ -96,7 +110,7 @@ int prox(int achou, int *descarte, int mao, int qtdJogadores, PILHA *monte, int 
     {
         descarte[descarte[0]+1] = mao;
         descarte[0] = descarte[0] + 1;
-        if(getTopo(&monte) != 0)
+        if(getTopo(monte) != 0)
         {
             if(jAtual >= qtdJogadores-1)
                 jAtual = 0;
@@ -106,7 +120,7 @@ int prox(int achou, int *descarte, int mao, int qtdJogadores, PILHA *monte, int 
     }
     else
     {
-        if(getTopo(&monte) != 0)
+        if(getTopo(monte) != 0)
         {
             jAtual=jAtual;
         }
@@ -114,7 +128,7 @@ int prox(int achou, int *descarte, int mao, int qtdJogadores, PILHA *monte, int 
     return jAtual;
 }
 ///-------------------------------------------------------------------------------------------
-int vencedor(int qtdJogadores, PILHA *jogador)
+int vencedor(int qtdJogadores, PILHA * jogador)
 {
     int ganhador = 0, i;
     for(i=0; i < qtdJogadores; i++)
@@ -136,7 +150,7 @@ int carta(void)
     return carta;
 }
 ///-------------------------------------------------------------------------------------------
-void inicio()
+int inicio()
 {
     clear();
     //Declaração das variaveis do tipo int
@@ -211,7 +225,7 @@ void inicio()
     }
 
     ///Informa o jogador vencedor -----------------------------------------------------------
-    printf("Ganhador jogador %d", vencedor(qtdJogadores, &jogador)+1);
+    printf("Ganhador jogador %d", vencedor(qtdJogadores, jogador)+1);
     printf("\n---------------------\n");
 }
 ///-------------------------------------------------------------------------------------------

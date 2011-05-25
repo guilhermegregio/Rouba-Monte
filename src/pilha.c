@@ -25,7 +25,7 @@ typedef struct {
 void push(PILHA *ps, int x)
 {
     if (ps->topo > TAMPILHA) {
-        printf("Pilha Cheia\n");
+        printf("%s\n", "Pilha Cheia");
         system("pause");
         exit(1);
     } else
@@ -39,7 +39,7 @@ void push(PILHA *ps, int x)
 int pop(PILHA *ps)
 {
     if (ps->topo <= 0) {
-        printf("Pilha vazia\n");
+        printf("%s\n", "Pilha vazia");
         system("pause");
         exit(1);
     } else
@@ -81,7 +81,7 @@ int getTopo(PILHA *ps)
 * Função para setar o topo como zero.
 * <params>PILHA</params>
 */
-setTopo(PILHA *ps)
+void setTopo(PILHA *ps)
 {
     ps->topo = 0;
 }
