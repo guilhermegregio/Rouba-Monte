@@ -14,9 +14,16 @@
 #include<stdlib.h>
 #include "pilha.c"
 ///-------------------------------------------------------------------------------------------
+void pause()
+{
+    fflush(stdin);
+    printf("\n\nPressione enter para continuar");
+    scanf("%*c");
+}
+///-------------------------------------------------------------------------------------------
 void menu()
 {
-    system("cls||clear");
+    clear();
 	printf("1 - Iniciar partida;\n");
 	printf("2 - Gerar novo arquivo rouba-monte.txt;\n");
 	printf("3 - Creditos;\n");
@@ -25,13 +32,14 @@ void menu()
 ///-------------------------------------------------------------------------------------------
 void creditos()
 {
-     printf("Alexandre de Andrade <0921358@sumare.edu.br>;\n");
-     printf("Allan Cezar Geraldo <1011086@sumare.edu.br>;\n");
-     printf("Guilherme Mangabeira Gregio <1012466@sumare.edu.br>;\n");
-     printf("Marcio Barbosa de Melo <1012689@sumare.edu.br>;\n");
-     printf("Matheus Borba Cezar <1011022@sumare.edu.br>;\n");
-     printf("Rafael Antonio Lucio <1010671@sumare.edu.br>;\n");
-     printf("Rogerio Benicio dos Santos <1012478@sumare.edu.br>;\n");
+    clear();
+    printf("Alexandre de Andrade <0921358@sumare.edu.br>;\n");
+    printf("Allan Cezar Geraldo <1011086@sumare.edu.br>;\n");
+    printf("Guilherme Mangabeira Gregio <1012466@sumare.edu.br>;\n");
+    printf("Marcio Barbosa de Melo <1012689@sumare.edu.br>;\n");
+    printf("Matheus Borba Cezar <1011022@sumare.edu.br>;\n");
+    printf("Rafael Antonio Lucio <1010671@sumare.edu.br>;\n");
+    printf("Rogerio Benicio dos Santos <1012478@sumare.edu.br>;\n");
 }
 ///-------------------------------------------------------------------------------------------
 int outrosMontes(int qtdJogadores, PILHA *jogador, int mao, int jAtual)
@@ -130,6 +138,7 @@ int carta(void)
 ///-------------------------------------------------------------------------------------------
 void inicio()
 {
+    clear();
     //Declaração das variaveis do tipo int
     int cartas,
         qtdJogadores,
@@ -208,11 +217,21 @@ void inicio()
     printf("\n---------------------\n");
 }
 ///-------------------------------------------------------------------------------------------
-void criarArq(){}
+void criarArq()
+{
+    clear();
+    printf("Arquivo rouba-monte.txt gerado com sucesso!!!");
+}
 ///-------------------------------------------------------------------------------------------
 void sair()
 {
+    clear();
     printf("Saindo!!!");
+}
+///-------------------------------------------------------------------------------------------
+void clear()
+{
+    system("cls||clear");
 }
 ///-------------------------------------------------------------------------------------------
 int main()
@@ -227,10 +246,10 @@ int main()
 
         switch(opt)
         {
-            case 1: inicio();   break;
-            case 2: criarArq(); break;
-            case 3: creditos(); break;
-            case 4: sair();     break;
+            case 1: inicio();   pause();    break;
+            case 2: criarArq(); pause();    break;
+            case 3: creditos(); pause();    break;
+            case 4: sair();                 break;
         }
     }
     while(opt != 4);
