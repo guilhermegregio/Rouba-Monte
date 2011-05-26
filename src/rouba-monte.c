@@ -130,12 +130,22 @@ int prox(int achou, int *descarte, int mao, int qtdJogadores, PILHA *monte, int 
 ///-------------------------------------------------------------------------------------------
 int vencedor(int qtdJogadores, PILHA * jogador)
 {
-    int ganhador = 0, i;
+    int ganhador = 0, i, count=0;
     for(i=0; i < qtdJogadores; i++)
     {
+        if(getTopo(&jogador[ganhador]) > getTopo(&jogador[i]))
+            count++;
         if(getTopo(&jogador[ganhador]) < getTopo(&jogador[i]))
+        {
             ganhador = i;
+            count++;
+        }
+
+
     }
+
+    if(count == 0)
+        return -1;
     return ganhador;
 }
 ///-------------------------------------------------------------------------------------------
@@ -165,7 +175,8 @@ int inicio()
         descarte[TAMPILHA+1],
         repet = 1,
         jAtual = 0,
-        opt;
+        opt,
+        jCampeao;
     FILE * Arquivo;
     PILHA monte;
 
@@ -225,7 +236,11 @@ int inicio()
     }
 
     ///Informa o jogador vencedor -----------------------------------------------------------
-    printf("Ganhador jogador %d", vencedor(qtdJogadores, jogador)+1);
+    jCampeao = vencedor(qtdJogadores, jogador);
+    if(jCampeao != -1)
+        printf("Ganhador jogador %d", jCampeao+1);
+    else
+        printf("NINGUEM GANHOU");
     printf("\n---------------------\n");
 }
 ///-------------------------------------------------------------------------------------------
