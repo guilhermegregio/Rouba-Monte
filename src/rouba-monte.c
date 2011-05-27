@@ -246,14 +246,23 @@ int inicio()
 ///-------------------------------------------------------------------------------------------
 void criarArq()
 {
+    int qtdPlays,
+        qtdCarts;
     FILE * Arquivo;
+
     clear();
-    printf("Arquivo roubaMonte.txt gerado com sucesso!!!");
+    printf("Informe a quantidade de jogadores: ");
+    scanf("%d", &qtdPlays);
+    printf("Informe a quantidade de cartas: ");
+    scanf("%d", &qtdCarts);
 
     Arquivo = fopen ("roubaMonte.txt","w"); // Cria arquivo
-    fprintf (Arquivo, "%d %d\n", 6, 3);
-    fprintf (Arquivo, "%d %d %d %d %d %d\n", carta(), carta(), carta(), carta(), carta(), carta());
+    fprintf (Arquivo, "%d %d\n", qtdCarts, qtdPlays);
+    for( ; qtdCarts > 0; qtdCarts--)
+        fprintf (Arquivo, "%d ", carta());
     fclose (Arquivo);
+
+    printf("Arquivo roubaMonte.txt gerado com sucesso!!!");
 }
 ///-------------------------------------------------------------------------------------------
 void sair()
