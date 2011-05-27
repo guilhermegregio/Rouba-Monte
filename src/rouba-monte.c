@@ -240,7 +240,10 @@ int inicio()
     if(jCampeao != -1)
         printf("Ganhador jogador %d, cartas %d.", jCampeao+1, getTopo(&jogador[jCampeao]));
     else
-        printf("NINGUEM GANHOU");
+    {
+        for(; qtdJogadores > 0; qtdJogadores-- )
+            printf("Ganhador jogador %d, cartas %d;\n", qtdJogadores, getTopo(&jogador[qtdJogadores-1]));
+    }
     printf("\n---------------------\n");
 }
 ///-------------------------------------------------------------------------------------------
