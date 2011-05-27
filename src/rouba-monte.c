@@ -208,7 +208,7 @@ int inicio()
     fclose(Arquivo);
 
     for(i=0; i<qtdJogadores; i++) /// Zerar o topo de todas as pilhas dos jogadores ----------
-        setTopo(&jogador[i].topo);
+        setTopo(&jogador[i]);
 
     for(i=cartas-1; i>=0; i--) /// Coloca cartas na pilha monte ------------------------------
         push(&monte, itens[i]);
@@ -238,7 +238,7 @@ int inicio()
     ///Informa o jogador vencedor -----------------------------------------------------------
     jCampeao = vencedor(qtdJogadores, jogador);
     if(jCampeao != -1)
-        printf("Ganhador jogador %d", jCampeao+1);
+        printf("Ganhador jogador %d, cartas %d.", jCampeao+1, getTopo(&jogador[jCampeao]));
     else
         printf("NINGUEM GANHOU");
     printf("\n---------------------\n");
